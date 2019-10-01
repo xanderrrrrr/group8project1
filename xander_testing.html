@@ -28,7 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
 
-        function apiGet(date,time,city) {
+        function apiGet(date, time, city) {
 
             var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + ",us&appid=5d08313ac297396dfcf6253d32c36ad9";
 
@@ -39,10 +39,28 @@
                 method: "GET"
             }).then(function (response) {
 
+                // console.log(response.list[3])
                 console.log(response)
+                console.log(response.list.length)
+
+
+                var newDate = date + " " + time.substring(0, 2) + ":00:00";
+
+                console.log(newDate)
+
+
+                for (var i = 0; i < response.list.length; i++) {
+                    if (response.list[i].dt_txt === newDate)
+                        console.log("wack")
+                }
+
+
+
 
                 // // Creating a div to hold the movie
-                // var movieDiv = $("<div class='movie'>");
+                var weatherDiv = $("<div class='weather'>");
+                // var newTimeAPI = response.
+
 
                 // // Storing the rating data
                 // var rating = response.Rated;
@@ -95,12 +113,12 @@
 
 
 
-            console.log(date)
-            console.log(time)
-            console.log(city)
+            // console.log(date)
+            // console.log(time)
+            // console.log(city)
 
             // Calling the api
-            apiGet(date,time,city)
+            apiGet(date, time, city)
         });
 
     </script>
