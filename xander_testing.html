@@ -41,19 +41,32 @@
 
                 // console.log(response.list[3])
                 console.log(response)
-                console.log(response.list.length)
 
-
-                var newDate = date + " " + time.substring(0, 2) + ":00:00";
-
-                console.log(newDate)
-
-
-                for (var i = 0; i < response.list.length; i++) {
-                    if (response.list[i].dt_txt === newDate)
-                        console.log("wack")
+                function hardCodeTime(date) {
+                    var newDate = date + " " +  "18:00:00";
+                    getWeather(newDate)
                 }
 
+
+
+
+
+                // var newDate = date + " " + newTime.substring(0, 2) + ":00:00";
+
+
+                function getWeather(newDate) {
+                    console.log(newDate)
+
+
+                    for (var i = 0; i < response.list.length; i++) {
+                        if (response.list[i].dt_txt === newDate)
+                            var farenheit = parseFloat(((response.list[i].main.temp - 273.15) * 9/5) + 32).toFixed(2);
+                            console.log("this is weather: " + farenheit)
+                    }
+
+                }
+
+                hardCodeTime(date)
 
 
 
