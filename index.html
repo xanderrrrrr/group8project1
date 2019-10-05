@@ -13,104 +13,188 @@
   <body>
     <header>
         <div class="jumbotron text-center">
-            <h1 class="text-strong">Happy Hour Hikes and Rides</h1>
+            <h1 class="text-strong">HAPPY HOUR HIKES and RIDES</h1>
             <br>
             <div class="container text-wrap .bg-gradient-info" style="width: 800px;">
                 <h3 class="font-weight-light">The place to plan hikes and trail rides with new and old friends, then the meetup location for refreshments afterwards.</h3>
                 <hr class="my-4">
+                <div>
+
+        <!-- Plan your Happy Hour Hike Button to modal form to new card on main page body -->
+                    <button type="button" class="btn btn-primary my-2" style="width: 180px" data-toggle="modal" data-target="#planHike">Plan a hike</button>
                     
-                <p>
-                  <button type="button" class="btn btn-primary my-2" style="width: 180px" data-toggle="modal" data-target="#planHike">Plan a hike</button>
-                    <div id="planHike" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog">
+                  
+                    <div id="planHike" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog">                      
+                      
                       <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <form class="container">
+
                                 <h2>Plan Your Hike</h2> 
                                 <br>
-                                <div class="form-group">
-                                  <label class="float-left" for="organizersName">Organizer's Name:</label>
-                                  <input type="text" class="form-control" id="organizersName">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="float-left" for="orgName">Organizer's Name:</label>
+                                        <input type="text" class="form-control" id="organizersName">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="float-left"  for="eventTitle">Event Title:</label>
+                                        <input type="text" class="form-control" id="eventTitle">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="float-left"  for="eventTitle">Event Title:</label>
-                                    <input type="text" class="form-control" id="eventTitle">
-                                </div>
-                                <div class="form-group">
-                                    <label class="float-left"  for="eventDescription">Event Description:</label>
-                                    <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+                                    <label class="float-left"  for="eventDesc">Event Description:</label>
+                                    <textarea class="form-control" id="eventDesc" rows="3"></textarea>
                                 </div>
                                 <div class="container row">
                                   <p>
                                     <label for="date">Date:  </label>
-                                    <input type="date" id="date">
+                                    <input type="date" id="eventDate">
                                   </p>
                                   <p style="margin-left: 10px">
                                       <label for="time">Time:  </label>
-                                      <input type="time" id="time">
+                                      <input type="time" id="eventTime">
                                     </p>
                                   </div>
-                                  <hr>
-                                  <h2>Find Your Trail</h2> 
-                                  <br>
-                                  <div class="form-group">
-                                      <label class="float-left" for="searchZip">Zip Code:</label>
-                                      <input type="number" class="form-control" id="searchZip">
-                                      <small class="form-text text-muted">Pick your home or work or anyplace else...we'll find trails within 30 miles of you.</small>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="float-left" for="minLength">Shortest distance you'd like to hike:</label>
-                                      <input type="number" class="form-control" id="searchZip">
-                                  </div>
+                                <hr>
+                                
+                                <!-- This is where we find trails from the MTB/Hiking Project API. -->
+                                <h2>Pick Your Trail</h2>                                                              
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="float-left" for="searchZip">Zip Code:</label>
+                                        <input type="number" class="form-control" id="searchZip">
+                                        <small class="form-text text-muted">Pick your home or work or anyplace else...we'll find trails near you.</small>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="float-left" for="minLength">Shortest distance for your hike:</label>
+                                        <input type="number" class="form-control" id="minDist">
+                                    </div>
+                                    <div class="col-md-4 float-right">
+                                        <br>
+                                        <button type="button" class="btn btn-primary my-2" data-backdrop="static" style="width: 180px">Find a Trail</button>
+                                    </div>
+                                </div>
+                                <P>---this is where we need to return the 5-10 trails from MTB/Hiking project---</P>                       
+                                <hr>
+
+                                <!-- This is where we use the Google Places API to find a post-hike/ride happy hour spot. -->
+                                <h2>Pick Your Happy Hour Spot</h2>                
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <label class="float-left" for="eventSocial">Search for place</label>
+                                        <input type="text" class="form-control" id="eventSocial" placeholder="Name of a bar, restaurant, park, etc.">
+                                    </div>                    
+                                    <div class="col-md-4 float-right">
+                                            <br>
+                                            <button type="button" class="btn btn-success my-2" data-backdrop="static" style="width: 180px">Select location</button>
+                                    </div>
+                                    
+                                </div>
+
+                                <P>---this is where we need to return the 5-10 happy hour spots from Google Places API---</P>
+                                <hr> 
+                                
+                                <!-- This creates the event and pushes everything to the card on the main page. -->
+                                <div class="row">
+                                    <div class="container align-items-center">
+                                        <button type="button" class="btn btn-info my-2" style="width: 300px">Create my Happy Hour Hike!</button>
+                                    </div>
+                                </div>
                             </form>
-                        </div>
+                         </div>
                       </div>
                     </div>
-                  <button type="button" class="btn btn-primary my-2" style="width: 180px" data-toggle="modal" data-target="#planBike">Plan a trail ride</button>
-                    <div id="planBike" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog">
-                      <div class="modal-dialog modal-lg">
+                 
+
+
+        <!-- Plan your Happy Hour Trail Ride Button to modal form to new card on main page body -->
+                    <button type="button" class="btn btn-success my-2" style="width: 180px" data-toggle="modal" data-target="#planRide">Plan a trail ride</button>
+                    
+                    
+                    <div id="planRide" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog">                      
+                        
+                        <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <form class="container">
+
                                 <h2>Plan Your Trail Ride</h2> 
                                 <br>
-                                <div class="form-group">
-                                  <label class="float-left" for="organizersName">Organizer's Name:</label>
-                                  <input type="text" class="form-control" id="organizersName">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="float-left" for="orgName">Organizer's Name:</label>
+                                        <input type="text" class="form-control" id="organizersName">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="float-left"  for="eventTitle">Event Title:</label>
+                                        <input type="text" class="form-control" id="eventTitle">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="float-left"  for="eventTitle">Event Title:</label>
-                                    <input type="text" class="form-control" id="eventTitle">
-                                </div>
-                                <div class="form-group">
-                                    <label class="float-left"  for="eventDescription">Event Description:</label>
-                                    <textarea class="form-control" id="eventDescription" rows="3"></textarea>
+                                    <label class="float-left"  for="eventDesc">Event Description:</label>
+                                    <textarea class="form-control" id="eventDesc" rows="3"></textarea>
                                 </div>
                                 <div class="container row">
-                                  <p>
+                                    <p>
                                     <label for="date">Date:  </label>
-                                    <input type="date" id="date">
-                                  </p>
-                                  <p style="margin-left: 10px">
-                                      <label for="time">Time:  </label>
-                                      <input type="time" id="time">
+                                    <input type="date" id="eventDate">
                                     </p>
-                                  </div>
-                                  <hr>
-                                  <h2>Find Your Trail</h2> 
-                                  <br>
-                                  <div class="form-group">
-                                      <label class="float-left" for="searchZip">Zip Code:</label>
-                                      <input type="number" class="form-control" id="searchZip">
-                                      <small class="form-text text-muted">Pick your home or work or anyplace else...we'll find trails within 30 miles of you.</small>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="float-left" for="minLength">Shortest distance you'd like to ride:</label>
-                                      <input type="number" class="form-control" id="searchZip">
-                                  </div>
+                                    <p style="margin-left: 10px">
+                                        <label for="time">Time:  </label>
+                                        <input type="time" id="eventTime">
+                                    </p>
+                                    </div>
+                                <hr>
+                                
+                                <!-- This is where we find trails from the MTB/Hiking Project API. -->
+                                <h2>Pick Your Trail</h2>                                                              
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="float-left" for="searchZip">Zip Code:</label>
+                                        <input type="number" class="form-control" id="searchZip">
+                                        <small class="form-text text-muted">Pick your home or work or anyplace else...we'll find trails near you.</small>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="float-left" for="minLength">Shortest distance trail ride:</label>
+                                        <input type="number" class="form-control" id="minDist">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <br>
+                                        <button type="button" class="btn btn-primary my-2 float-right" data-backdrop="static" style="width: 180px">Find a Trail</button>
+                                    </div>
+                                </div>
+                                <P>---this is where we need to return the 5-10 trails from MTB/Hiking project---</P>                       
+                                <hr>
+
+                                <!-- This is where we use the Google Places API to find a post-hike/ride happy hour spot. -->
+                                <h2>Pick Your Happy Hour Spot</h2>                
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <label class="float-left" for="eventSocial">Search for place</label>
+                                        <input type="text" class="form-control" id="eventSocial" placeholder="Name of a bar, restaurant, park, etc.">
+                                    </div>                    
+                                    <div class="col-md-4">
+                                            <br>
+                                            <button type="button" class="btn btn-success my-2 float-right" data-backdrop="static" style="width: 180px">Select location</button>
+                                    </div>
+                                    
+                                </div>
+
+                                <P>---this is where we need to return the 5-10 happy hour spots from Google Places API---</P>
+                                <hr> 
+                                
+                                <!-- This creates the event and pushes everything to the card on the main page. -->
+                                <div class="row">
+                                    <div class="container align-items-center">
+                                        <button type="button" class="btn btn-info my-2" style="width: 300px">Create my Happy Hour Trail Ride!</button>
+                                    </div>
+                                </div>
                             </form>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                </p>
+
+                </div>
             </div>
         </div>
     </header>
@@ -124,7 +208,7 @@
                         <img src="assets/bike1.jpg" class="card-img-top">
                         <div class="card-body">
                             <h5 class="eventTitle">...Hike/Ride Title...</Hike></h5>
-                            <p class="eventDescription">When the user creates a new event, the description will go here.</p>
+                            <p class="eventDesc">When the user creates a new event, the description will go here.</p>
                             <p class="eventDate">Date:</p>
                             <p class="eventTime">Time:</p>
                             <p class="eventLcn">Meetup Spot:</p>
