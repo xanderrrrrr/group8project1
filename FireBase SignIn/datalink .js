@@ -1,3 +1,6 @@
+var app_fireBase = {};
+(function(){
+// Your web app's Firebase configuration
 var config = {
     apiKey: "AIzaSyAjCKPaytT8KgyD6N8enxPI8TysBePq2jQ",
     authDomain: "group8project1-cd703.firebaseapp.com",
@@ -10,6 +13,10 @@ var config = {
   };
   // Initialize Firebase
   firebase.initializeApp(config);
+
+  app_fireBase = firebase;
+  
+})();
 
   var hikes = firebase.database().ref("hikes");
 
