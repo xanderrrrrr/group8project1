@@ -123,6 +123,5 @@ function submitHikes() {
 };
 
 $("#createEvent").on("click", function (event) {
-    event.preventDefault();
     submitHikes()
 });
