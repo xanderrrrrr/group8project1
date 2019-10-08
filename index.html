@@ -82,7 +82,10 @@
                                                 data-backdrop="static" style="width: 180px">Find a Trail</button>
                                         </div>
                                     </div>
-                                    <P>---this is where we need to return the 5-10 trails from MTB/Hiking project---</P>
+                                    <div id="choices-go-here">
+                                        <P>---this is where we need to return the 5-10 trails from MTB/Hiking project---
+                                        </P>
+                                    </div>
                                     <hr>
 
                                     <!-- This is where we use the Google Places API to find a post-hike/ride happy hour spot. -->
@@ -346,11 +349,7 @@
             </div>
         </div>
     </div>
-    <!-- pulling in local js -->
-    <script src="assets/javascript/app.js"></script>
-    <!-- pulling in jquery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
 
     <br>
     <hr class="container my-4">
@@ -375,5 +374,15 @@
     </footer>
     <br>
     <br>
+
+
+    <!-- pulling in jquery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <!-- Firebase References -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    <!-- pulling in local js -->
+    <script src="assets/javascript/app.js"></script>
 
 </html>
