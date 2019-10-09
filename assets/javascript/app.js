@@ -62,6 +62,7 @@ function trailAPI(lat, lng, shortDistance) {
             // giving it a radio field and giving it an ID so we can push that to firebase
             hikeInput.attr("type", "radio")
             hikeInput.attr("trailID", response.trails[i].id)
+            hikeInput.attr("imageURL",response.trails[i].imgMedium)
 
             // appending our radio buttons to our div from above
             hikeDiv.append(hikeInput)
@@ -97,8 +98,10 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database()
 
+// the function that runs when the user hits submit button
 function submitHikes() {
 
+    // grabbing the user input values
     var organizer = $("#organizersName").val().trim();
     var event = $("#eventTitle").val().trim();
     var desc = $("#eventDesc").val().trim();
@@ -107,21 +110,121 @@ function submitHikes() {
     var zip = $("#searchZip").val().trim();
     var distance = $("#minDist").val().trim();
     var social = $("#eventSocial").val().trim();
+    var trailImage = $('input[type=radio]:checked').attr('imageURL')
     var trailID = $('input[type=radio]:checked').attr('trailid')
 
+    // pushing those input values into firebase
     database.ref().push({
-        "Organizer's Name": organizer,
-        "Event Title": event,
-        "Event Description": desc,
-        "Event Date": date,
-        "Event Time": time,
-        "Zip Code": zip,
-        "Shortest Distance": distance,
-        "Event Social Location": social,
-        "trailID": trailID
+        "organizersName": organizer,
+        "eventTitle": event,
+        "eventDescription": desc,
+        "eventDate": date,
+        "eventTime": time,
+        "zipCode": zip,
+        "shortestDistance": distance,
+        "eventSocialLocation": social,
+        "trailID": trailID,
+        "trailImage": trailImage
     });
 };
-
+// on click listener for the final "create event" button that runs the function to submit hikes
 $("#createEvent").on("click", function (event) {
     submitHikes()
 });
+
+// old way of doing it: event for putting the firebase events into HTML when a user adds an entry
+// database.ref().on("child_added", function (childSnapshot) {
+//     console.log(childSnapshot.val());
+
+//     // Store everything into a variable.
+//     var eventDate = childSnapshot.val().eventDate;
+//     var eventDescription = childSnapshot.val().eventDescription
+//     var eventSocialLocation = childSnapshot.val().eventSocialLocation;
+//     var eventTime = childSnapshot.val().eventTime;
+//     var eventTitle = childSnapshot.val().eventTitle;
+//     var organizersName = childSnapshot.val().organizersName;
+//     var trailID = childSnapshot.val().trailID;
+//     var zipCode = childSnapshot.val().zipCode;
+
+//     // Event Info
+//     console.log(eventDate);
+//     console.log(eventTitle);
+//     console.log(trailID);
+
+//     // Create the parent div of the card
+//     var parentDiv = $("<div>")
+//     // give the parent div a bootstrap class
+//     parentDiv.attr("class","col-lg-4")
+
+//     // creating a new card div
+//     var cardDiv = $("<div>")
+//     cardDiv.attr("class","card")
+//     cardDiv.attr("style","width: 18rem;")
+
+//     // creating the div for card body
+//     var cardBody = $("<div>")
+//     cardBody.attr("class","card-body")
+
+//     // creating a span for the title
+//     var titleSpan = $("<span>").append(
+//         $("<h5>").text(eventTitle)
+//     )
+
+//     cardBody.append(titleSpan)
+//     cardDiv.append(cardBody)
+//     parentDiv.append(cardDiv)
+
+//     // Append the new row to the table
+//     $("#newGoesHere").append(parentDiv);
+// });
+
+// new way: Firebase event for putting the firebase events into HTML when a user adds an entry
+database.ref().on("child_added", function (childSnapshot) {
+    console.log(childSnapshot.val());
+
+    // Store everything into a variable.
+    var eventDate = childSnapshot.val().eventDate;
+    var eventDescription = childSnapshot.val().eventDescription
+    var eventSocialLocation = childSnapshot.val().eventSocialLocation;
+    var eventTime = childSnapshot.val().eventTime;
+    var eventTitle = childSnapshot.val().eventTitle;
+    var organizersName = childSnapshot.val().organizersName;
+    var trailID = childSnapshot.val().trailID;
+    var zipCode = childSnapshot.val().zipCode;
+    var uniqueID = childSnapshot.key
+    var trailImage = childSnapshot.val().trailImage;
+
+    // Event Info
+    console.log(eventDate);
+    console.log(eventTitle);
+    console.log(trailID);
+    console.log(childSnapshot.key)
+
+    var momentEventDate = moment(eventDate)
+     if (momentEventDate >= moment()) {
+
+    
+
+
+
+    // Append the entire card/modal to the table
+    $('<div class="col-lg-4"><div id="newCard" class="card" style="width: 18rem;"><img src="' + trailImage + '" class="card-img-top"><div class="card-body"><h5><span id="eventTitle">' + eventTitle + 
+    '</span></h5><p><span id="eventDesc">' + eventDescription+ '</span></p><p>Date: <span id="eventDate">' + eventDate + '</span></p><p>Time: <span id="eventTime">' + eventTime + 
+    '</span></p><p>Meetup Spot: <span id="eventTrail">' + trailID + '</span></p><p>Happy Hour Spot: <span id="eventSocial">' + eventSocialLocation + '</span><button style="margin-top:10px;" type="button" class="btn btn-info btn-block" data-toggle="modal" data-target=#'+ uniqueID + '>Event Info</button><div id=' + uniqueID + ' class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="container"><br><h2 id="eventTitle"></h2><br><div class="row"><div class="col-md-5"><img src="' + trailImage +  '" class="img-fluid"></div><div class="col-md-7"><p><strong>Date: </strong><span id="eventDate" class="float-right">' + eventDate + 
+    '</span></p><p><strong>Time: </strong><span id="eventTime" class="float-right">' + eventTime + '</span></p><p><strong>Trail: </strong><span id="eventTrail" class="float-right">' + trailID + '</span></p><p><strong>Happy Hour Spot: </strong><span id="eventSocial" class="float-right">' +eventSocialLocation +
+     '</span></p></div></div><br><div class="row"><div class="container"><p><strong>Event Description: </strong><span id="eventDesc">' + eventDescription + 
+     '</span></p></div></div><hr><h5><strong>Whos signed up so far: </strong></h5><p>---this is where we need to return a list of who has registered/joined the event---</p><div class="row"><div class="container align-items-center"><button type="submit" id="createEvent" class="btn btn-info my-2" style="width: 300px">Join this event</button></div></div></div><br></div></div></div></div></div></div>').appendTo('#newGoesHere');
+     }
+
+     else {
+         // Append the entire card/modal to the table
+    $('<div class="col-lg-4"><div id="newCard" class="card" style="width: 18rem;"><img src="' + trailImage + '" class="card-img-top"><div class="card-body"><h5><span id="eventTitle">' + eventTitle + 
+    '</span></h5><p><span id="eventDesc">' + eventDescription+ '</span></p><p>Date: <span id="eventDate">' + eventDate + '</span></p><p>Time: <span id="eventTime">' + eventTime + 
+    '</span></p><p>Meetup Spot: <span id="eventTrail">' + trailID + '</span></p><p>Happy Hour Spot: <span id="eventSocial">' + eventSocialLocation + '</span><button style="margin-top:10px;" type="button" class="btn btn-info btn-block" data-toggle="modal" data-target=#'+ uniqueID + '>Event Info</button><div id=' + uniqueID + ' class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="container"><br><h2 id="eventTitle"></h2><br><div class="row"><div class="col-md-5"><img src="' + trailImage +  '" class="img-fluid"></div><div class="col-md-7"><p><strong>Date: </strong><span id="eventDate" class="float-right">' + eventDate + 
+    '</span></p><p><strong>Time: </strong><span id="eventTime" class="float-right">' + eventTime + '</span></p><p><strong>Trail: </strong><span id="eventTrail" class="float-right">' + trailID + '</span></p><p><strong>Happy Hour Spot: </strong><span id="eventSocial" class="float-right">' +eventSocialLocation +
+     '</span></p></div></div><br><div class="row"><div class="container"><p><strong>Event Description: </strong><span id="eventDesc">' + eventDescription + 
+     '</span></p></div></div><hr><h5><strong>Whos signed up so far: </strong></h5><p>---this is where we need to return a list of who has registered/joined the event---</p><div class="row"><div class="container align-items-center"><button type="submit" id="createEvent" class="btn btn-info my-2" data-dismiss="modal" style="width: 300px">Close</button></div></div></div><br></div></div></div></div></div></div>').appendTo('#pastGoesHere');
+     
+         
+     }
+    });
