@@ -119,94 +119,7 @@
 
 
 
-                    <!-- Plan your Happy Hour Trail Ride Button to modal form to new card on main page body -->
-                    <button type="button" class="btn btn-success my-2" style="width: 180px" data-toggle="modal"
-                        data-target="#planRide">Plan a trail ride</button>
-                    <div id="planRide" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <form class="container">
-                                    <h2>Plan Your Trail Ride</h2>
-                                    <br>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label class="float-left" for="orgName">Organizer's Name:</label>
-                                            <input type="text" class="form-control" id="organizersName">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label class="float-left" for="eventTitle">Event Title:</label>
-                                            <input type="text" class="form-control" id="eventTitle">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="float-left" for="eventDesc">Event Description:</label>
-                                        <textarea class="form-control" id="eventDesc" rows="3"></textarea>
-                                    </div>
-                                    <div class="container row">
-                                        <p>
-                                            <label for="date">Date: </label>
-                                            <input type="date" id="eventDate">
-                                        </p>
-                                        <p style="margin-left: 10px">
-                                            <label for="time">Time: </label>
-                                            <input type="time" id="eventTime">
-                                        </p>
-                                    </div>
-                                    <hr>
-
-                                    <!-- This is where we find trails from the MTB/Hiking Project API. -->
-                                    <h2>Pick Your Trail</h2>
-                                    <div class="row">
-                                        <div class="form-group col-md-4">
-                                            <label class="float-left" for="searchZip">Zip Code:</label>
-                                            <input type="number" class="form-control" id="searchZip">
-                                            <small class="form-text text-muted">Pick your home or work or anyplace
-                                                else...we'll find trails near you.</small>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label class="float-left" for="minLength">Shortest distance trail
-                                                ride:</label>
-                                            <input type="number" class="form-control" id="minDist">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <br>
-                                            <button type="button" id="findTrail"
-                                                class="btn btn-primary my-2 float-right" data-backdrop="static"
-                                                style="width: 180px">Find a Trail</button>
-                                        </div>
-                                    </div>
-                                    <P>---this is where we need to return the 5-10 trails from MTB/Hiking project---</P>
-                                    <hr>
-
-                                    <!-- This is where we use the Google Places API to find a post-hike/ride happy hour spot. -->
-                                    <h2>Pick Your Happy Hour Spot</h2>
-                                    <div class="row">
-                                        <div class="form-group col-md-8">
-                                            <label class="float-left" for="eventSocial">Search for place</label>
-                                            <input type="text" class="form-control" id="eventSocial"
-                                                placeholder="Name of a bar, restaurant, park, etc.">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <br>
-                                            <button type="button" id="bookParty"
-                                                class="btn btn-success my-2 float-right" data-backdrop="static"
-                                                style="width: 180px">Select location</button>
-                                        </div>
-                                    </div>
-
-                                    <P>---this is where we need to return the 5-10 happy hour spots from Google Places
-                                        API---</P>
-                                    <!-- This creates the event and pushes everything to the card on the main page. -->
-                                    <div class="row">
-                                        <div class="container align-items-center">
-                                            <button type="submit" id="createEvent" class="btn btn-info my-2"
-                                                style="width: 300px">Create my Happy Hour Trail Ride!</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -216,66 +129,7 @@
         <h2 class="text-left">Upcoming Hikes and Rides</h2>
         <br>
         <div class="row" id="newGoesHere">
-            <div class="col-lg-4">
-                <div id="newCard" class="card" style="width: 18rem;">
-                    <img src="assets/bike1.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5><span id="eventTitle"></span></h5>
-                        <p><span id="eventDesc"></span></p>
-                        <p>Date: <span id="eventDate"></span></p>
-                        <p>Time: <span id="eventTime"></span></p>
-                        <p>Meetup Spot: <span id="eventTrail"></span></p>
-                        <p>Happy Hour Spot: <span id="eventSocial"></span>
-                            <button type="button" class="btn btn-info btn-block" data-toggle="modal"
-                                data-target="#eventInfo">Event Info</button>
-                            <div id="eventInfo" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="container">
-                                            <br>
-                                            <h2 id="eventTitle"></h2>
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-md-5">
-                                                    <img src="assets/bike1.jpg" class="img-fluid">
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <p><strong>Date: </strong><span id="eventDate"
-                                                            class="float-right"></span></p>
-                                                    <p><strong>Time: </strong><span id="eventTime"
-                                                            class="float-right"></span></p>
-                                                    <p><strong>Trail: </strong><span id="eventTrail"
-                                                            class="float-right"></span></p>
-                                                    <p><strong>Happy Hour Spot: </strong><span id="eventSocial"
-                                                            class="float-right"></span></p>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="row">
-                                                <div class="container">
-                                                    <p><strong>Event Description: </strong><span id="eventDesc"></span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <h5><strong>Who's signed up so far: </strong></h5>
-                                            <p>---this is where we need to return a list of who has registered/joined
-                                                the event---</p>
-                                            <!-- This allows Secondary Users to join an event. -->
-                                            <div class="row">
-                                                <div class="container align-items-center">
-                                                    <button type="submit" id="createEvent" class="btn btn-info my-2"
-                                                        style="width: 300px">Join this event</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
     </div>
@@ -288,65 +142,7 @@
         <h2 class="text-left">Past Hikes and Rides</h2>
         <br>
         <div class="row" id=pastGoesHere>
-            <div class="col-lg-4">
-                <div id="oldCard" class="card" style="width: 18rem;">
-                    <img src="assets/bike1.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <h5><span id="eventTitle"></span></h5>
-                        <p><span id="eventDesc"></span></p>
-                        <p>Date: <span id="eventDate"></span></p>
-                        <p>Time: <span id="eventTime"></span></p>
-                        <p>Meetup Spot: <span id="eventTrail"></span></p>
-                        <p>Happy Hour Spot: <span id="eventSocial"></span>
-                            <button type="button" class="btn btn-info btn-block" data-toggle="modal"
-                                data-target="#pastEvent">Event Info</button>
-                            <div id="pastEvent" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="container">
-                                            <br>
-                                            <h2 id="eventTitle"></h2>
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-md-5">
-                                                    <img src="assets/bike1.jpg" class="img-fluid">
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <p><strong>Date: </strong><span id="eventDate"
-                                                            class="float-right"></span></p>
-                                                    <p><strong>Time: </strong><span id="eventTime"
-                                                            class="float-right"></span></p>
-                                                    <p><strong>Trail: </strong><span id="eventTrail"
-                                                            class="float-right"></span></p>
-                                                    <p><strong>Happy Hour Spot: </strong><span id="eventSocial"
-                                                            class="float-right"></span></p>
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div class="row">
-                                                <div class="container">
-                                                    <p><strong>Event Description: </strong><span id="eventDesc"></span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <h5><strong>Who went: </strong></h5>
-                                            <p>---this is where we need to return a list of who has registered/joined
-                                                the event---</p>
-                                            <div class="row">
-                                                <div class="container align-items-center">
-                                                    <button type="submit" id="createEvent" class="btn btn-info my-2"
-                                                        data-dismiss="modal" style="width: 300px">Close</button>
-                                                </div>
-                                            </div>
-                                            <br>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 

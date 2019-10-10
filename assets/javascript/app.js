@@ -1,3 +1,5 @@
+$.holdReady(true);
+
 // first, when the user clicks submit, it will get the values for date, time and city
 $("#findTrail").on("click", function (event) {
     event.preventDefault();
@@ -61,7 +63,7 @@ function trailAPI(lat, lng, shortDistance) {
             var hikeInput = $("<input>")
             // giving it a radio field and giving it an ID so we can push that to firebase
             hikeInput.attr("type", "radio")
-            hikeInput.attr("trailID", response.trails[i].id)
+            hikeInput.attr("trailID", response.trails[i].name)
             hikeInput.attr("imageURL",response.trails[i].imgMedium)
 
             // appending our radio buttons to our div from above
@@ -124,8 +126,11 @@ function submitHikes() {
         "shortestDistance": distance,
         "eventSocialLocation": social,
         "trailID": trailID,
-        "trailImage": trailImage
+        "trailImage": trailImage,
+        "attendees": [organizer]
     });
+
+
 };
 // on click listener for the final "create event" button that runs the function to submit hikes
 $("#createEvent").on("click", function (event) {
@@ -178,6 +183,8 @@ $("#createEvent").on("click", function (event) {
 //     $("#newGoesHere").append(parentDiv);
 // });
 
+
+
 // new way: Firebase event for putting the firebase events into HTML when a user adds an entry
 database.ref().on("child_added", function (childSnapshot) {
     console.log(childSnapshot.val());
@@ -193,18 +200,25 @@ database.ref().on("child_added", function (childSnapshot) {
     var zipCode = childSnapshot.val().zipCode;
     var uniqueID = childSnapshot.key
     var trailImage = childSnapshot.val().trailImage;
+    var newAttendees = childSnapshot.val().attendees
+    console.log(newAttendees)
+    var attendeesString = ""
 
-    // Event Info
-    console.log(eventDate);
-    console.log(eventTitle);
-    console.log(trailID);
-    console.log(childSnapshot.key)
+    for(var i = 0;i < newAttendees.length; i++) {
+        console.log(newAttendees[i])
+        attendeesString+=newAttendees[i] + " "
 
+    }
+    console.log("new: " + attendeesString)
     var momentEventDate = moment(eventDate)
      if (momentEventDate >= moment()) {
 
     
+        // database.ref(uniqueID+"/attendees").on("child_added", function (childSnapshot) {
 
+        //     console.log(childSnapshot.val())
+    
+        // })
 
 
     // Append the entire card/modal to the table
@@ -213,7 +227,7 @@ database.ref().on("child_added", function (childSnapshot) {
     '</span></p><p>Meetup Spot: <span id="eventTrail">' + trailID + '</span></p><p>Happy Hour Spot: <span id="eventSocial">' + eventSocialLocation + '</span><button style="margin-top:10px;" type="button" class="btn btn-info btn-block" data-toggle="modal" data-target=#'+ uniqueID + '>Event Info</button><div id=' + uniqueID + ' class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="container"><br><h2 id="eventTitle"></h2><br><div class="row"><div class="col-md-5"><img src="' + trailImage +  '" class="img-fluid"></div><div class="col-md-7"><p><strong>Date: </strong><span id="eventDate" class="float-right">' + eventDate + 
     '</span></p><p><strong>Time: </strong><span id="eventTime" class="float-right">' + eventTime + '</span></p><p><strong>Trail: </strong><span id="eventTrail" class="float-right">' + trailID + '</span></p><p><strong>Happy Hour Spot: </strong><span id="eventSocial" class="float-right">' +eventSocialLocation +
      '</span></p></div></div><br><div class="row"><div class="container"><p><strong>Event Description: </strong><span id="eventDesc">' + eventDescription + 
-     '</span></p></div></div><hr><h5><strong>Whos signed up so far: </strong></h5><p>---this is where we need to return a list of who has registered/joined the event---</p><div class="row"><div class="container align-items-center"><button type="submit" id="createEvent" class="btn btn-info my-2" style="width: 300px">Join this event</button></div></div></div><br></div></div></div></div></div></div>').appendTo('#newGoesHere');
+     '</span></p></div></div><hr><h5><strong>Whos signed up so far: </strong></h5><div id="attendeesGoHere">' + attendeesString + '<div class="row"> <div class="form-group col-md-8"> <label class="float-left" for="eventSocial">Enter your name</label> <input type="text" class="form-control" id="attendee"> </div> <div class="col-md-4 float-right"> <br> <button type="button" id="' + uniqueID + '" class="btn btn-info my-2" data-backdrop="static" style="width: 180px" onclick="addName(this.id)">Join this event</button> </div> </div></div><br></div></div></div></div></div></div>').appendTo('#newGoesHere');
      }
 
      else {
@@ -228,3 +242,37 @@ database.ref().on("child_added", function (childSnapshot) {
          
      }
     });
+
+
+ 
+function addName(x) {
+    // grab the uniqueID so we know which to push to 
+    // database.ref().on("child_added", function (childSnapshot) {
+    // console.log('wat ' + database.ref(x).once('eventDate').then(function(snapshot) {}))
+    database.ref(x).once('value').then(function(snapshot) {
+
+
+
+    var attendees = (snapshot.val().attendees);
+    // console.log(attendees)
+
+    var attendee = $("#attendee").val().trim();
+    attendees.push(attendee);
+    console.log(attendees)
+
+    database.ref(x).update({"attendees": attendees});
+    
+     $("#attendeesGoHere").prepend(attendee + " ")
+
+    
+
+
+
+
+  })
+
+
+
+}
+
+
